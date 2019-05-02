@@ -8,6 +8,7 @@ import os
 
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPool2D,GlobalAveragePooling2D
 from keras.models import Sequential, Model, load_model
+from keras import backend as K
 
 
 def build_resnet(input_shape, pre_trained_weights, num_classes):
@@ -52,6 +53,10 @@ def run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_s
         loss = 'categorical_crossentropy'
     model.compile(optimizer=opt, loss=loss, metrics=['accuracy'])
 
+    with_gpu = K.tensorflow_backend._get_available_gpus()
+    print('If not empty, the code is using GPU:' + with_gpu)
+    print(with_gpu)
+
     model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size)
 
     preds = model.evaluate(x_test, y_test)
@@ -60,7 +65,8 @@ def run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_s
     model.summary()
 
 
-model_name = 'densenet121'
+# model_name = 'densenet121'
+model_name = 'resnet'
 
 if model_name == 'densenet121':  # For densenet - https://arxiv.org/pdf/1608.06993.pdf
     batch_size = 64

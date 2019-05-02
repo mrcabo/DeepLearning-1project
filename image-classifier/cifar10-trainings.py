@@ -54,7 +54,7 @@ def run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_s
     model.compile(optimizer=opt, loss=loss, metrics=['accuracy'])
 
     with_gpu = K.tensorflow_backend._get_available_gpus()
-    print('If not empty, the code is using GPU:' + with_gpu)
+    print('If not empty, the code is using GPU:')
     print(with_gpu)
 
     model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size)

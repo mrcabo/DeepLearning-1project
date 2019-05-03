@@ -36,7 +36,8 @@ def build_densenet121(input_shape, pre_trained_weights, num_classes):
     return model
 
 
-def run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_size=32, epochs=100, optimizer='Adam', loss_typename='categorical_crossentropy'):
+def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, input_shape, pre_trained_weights,
+              num_classes, batch_size=32, epochs=100, optimizer='Adam', loss_typename='categorical_crossentropy'):
     if model_name == 'densenet121':
         model = build_densenet121(input_shape, pre_trained_weights, num_classes)
     else:
@@ -57,9 +58,10 @@ def run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_s
     print('If not empty, the code is using GPU:')
     print(with_gpu)
 
-    model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size)
+    model.fit(x_train_data, y_train_data, epochs=epochs, batch_size=batch_size,
+              validation_data=(x_test_data, y_test_data))
 
-    preds = model.evaluate(x_test, y_test)
+    preds = model.evaluate(x_test_data, y_test_data)
     print("Loss = " + str(preds[0]))
     print("Test Accuracy = " + str(preds[1]))
     model.summary()
@@ -115,4 +117,5 @@ print('y_train shape:', y_train.shape)
 y_train = utils.to_categorical(y_train, num_classes)
 y_test = utils.to_categorical(y_test, num_classes)
 
-run_model(model_name, input_shape, pre_trained_weights, num_classes, batch_size, epochs, optimizer)
+run_model(x_train, y_train, x_test, y_test, model_name, input_shape, pre_trained_weights,
+          num_classes, batch_size, epochs, optimizer)

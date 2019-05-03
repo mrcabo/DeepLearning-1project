@@ -5,17 +5,38 @@ from keras import utils
 from keras.datasets import cifar10
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPool2D,GlobalAveragePooling2D
 from keras.models import Sequential, Model, load_model
 from keras import backend as K
 
 
+def printGraph(history):
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
+    # summarize history for loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
+
 def build_resnet(input_shape, pre_trained_weights, num_classes):
     base_model = applications.ResNet50(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
+    if pre_trained_weights == 'imagenet':
+        for layer in base_model.layers:
+            layer.trainable = False
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
-    x = Dropout(0.7)(x)
+    # x = Dropout(0.7)(x)
     predictions = Dense(num_classes, activation='softmax')(x)
     model = Model(inputs=base_model.input, outputs=predictions)
     return model
@@ -23,7 +44,9 @@ def build_resnet(input_shape, pre_trained_weights, num_classes):
 
 def build_densenet121(input_shape, pre_trained_weights, num_classes):
     base_model = applications.DenseNet121(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
-    # add a global spatial average pooling layer
+    if pre_trained_weights == 'imagenet':
+        for layer in base_model.layers:
+            layer.trainable = False
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
     # x = Dropout(0.7)(x)
@@ -52,14 +75,16 @@ def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, 
         loss = 'mse'
     else:
         loss = 'categorical_crossentropy'
+
     model.compile(optimizer=opt, loss=loss, metrics=['accuracy'])
 
     with_gpu = K.tensorflow_backend._get_available_gpus()
     print('If not empty, the code is using GPU:')
     print(with_gpu)
 
-    model.fit(x_train_data, y_train_data, epochs=epochs, batch_size=batch_size,
+    history = model.fit(x_train_data, y_train_data, epochs=epochs, batch_size=batch_size,
               validation_data=(x_test_data, y_test_data))
+    printGraph(history)
 
     preds = model.evaluate(x_test_data, y_test_data)
     print("Loss = " + str(preds[0]))
@@ -67,8 +92,8 @@ def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, 
     model.summary()
 
 
-# model_name = 'densenet121'
-model_name = 'resnet'
+model_name = 'densenet121'
+# model_name = 'resnet'
 
 if model_name == 'densenet121':  # For densenet - https://arxiv.org/pdf/1608.06993.pdf
     batch_size = 64
@@ -76,7 +101,7 @@ if model_name == 'densenet121':  # For densenet - https://arxiv.org/pdf/1608.069
     optimizer = 'SGD'
 else:
     batch_size = 32  # orig paper trained all networks with batch_size=128
-    epochs = 200
+    epochs = 2
     optimizer = 'Adam'
 
 # Training parameters

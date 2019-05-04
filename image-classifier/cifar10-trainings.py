@@ -31,22 +31,15 @@ def printGraph(history):
     plt.show()
     plt.savefig('model-loss.png')
 
-def build_resnet(input_shape, pre_trained_weights, num_classes, dropout=False):
-    base_model = applications.ResNet50(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
-    if pre_trained_weights == 'imagenet':
-        for layer in base_model.layers:
-            layer.trainable = False
-    x = base_model.output
-    x = GlobalAveragePooling2D()(x)
-    if dropout:
-        x = Dropout(0.7)(x)
-    predictions = Dense(num_classes, activation='softmax')(x)
-    model = Model(inputs=base_model.input, outputs=predictions)
-    return model
 
+def build_model(input_shape, pre_trained_weights, num_classes, dropout=False, model='resnet'):
+    if model == 'densenet121':
+        base_model = applications.DenseNet121(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
+    elif model == 'vgg16':
+        base_model = applications.VGG16(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
+    else:
+        base_model = applications.ResNet50(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
 
-def build_densenet121(input_shape, pre_trained_weights, num_classes, dropout=False):
-    base_model = applications.DenseNet121(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
     if pre_trained_weights == 'imagenet':
         for layer in base_model.layers:
             layer.trainable = False
@@ -66,11 +59,7 @@ def build_densenet121(input_shape, pre_trained_weights, num_classes, dropout=Fal
 def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, input_shape, pre_trained_weights,
               num_classes, batch_size=32, epochs=100, optimizer='Adam', loss_typename='categorical_crossentropy',
               dropout=False):
-    if model_name == 'densenet121':
-        model = build_densenet121(input_shape, pre_trained_weights, num_classes, dropout)
-    else:
-        model = build_resnet(input_shape, pre_trained_weights, num_classes, dropout)
-
+    model = build_model(input_shape, pre_trained_weights, num_classes, dropout, model=model_name)
     if optimizer == 'SGD':
         opt = SGD(lr=0.001, momentum=0.9, decay=1e-3, nesterov=True)
     else:
@@ -110,12 +99,13 @@ def print_params(model_name, batch_size, epochs, optimizer, loss, dropout, data_
 
 # Training parameters
 
-model_name = 'densenet121'
+# model_name = 'densenet121'
+model_name = 'vgg16'
 # model_name = 'resnet'
 batch_size = 64 # For densenet - https://arxiv.org/pdf/1608.06993.pdf
 epochs = 80
-optimizer = 'SGD'
-# optimizer = 'Adam'
+# optimizer = 'SGD'
+optimizer = 'Adam'
 loss = 'categorical_crossentropy'
 dropout = False
 data_augmentation = False  # TODO: make it with data augmentation, should be noticeable for larger networks.. We will need to use fit_generator

@@ -20,6 +20,7 @@ def printGraph(history):
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
+    plt.savefig('model-accuracy.png')
     # summarize history for loss
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -28,6 +29,7 @@ def printGraph(history):
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
+    plt.savefig('model-loss.png')
 
 def build_resnet(input_shape, pre_trained_weights, num_classes):
     base_model = applications.ResNet50(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
@@ -97,11 +99,11 @@ model_name = 'densenet121'
 
 if model_name == 'densenet121':  # For densenet - https://arxiv.org/pdf/1608.06993.pdf
     batch_size = 64
-    epochs = 300
+    epochs = 80
     optimizer = 'SGD'
 else:
-    batch_size = 32  # orig paper trained all networks with batch_size=128
-    epochs = 2
+    batch_size = 64  # orig paper trained all networks with batch_size=128
+    epochs = 80
     optimizer = 'Adam'
 
 # Training parameters

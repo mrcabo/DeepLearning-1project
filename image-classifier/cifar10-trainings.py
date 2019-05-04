@@ -31,27 +31,29 @@ def printGraph(history):
     plt.show()
     plt.savefig('model-loss.png')
 
-def build_resnet(input_shape, pre_trained_weights, num_classes):
+def build_resnet(input_shape, pre_trained_weights, num_classes, dropout=False):
     base_model = applications.ResNet50(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
     if pre_trained_weights == 'imagenet':
         for layer in base_model.layers:
             layer.trainable = False
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
-    # x = Dropout(0.7)(x)
+    if dropout:
+        x = Dropout(0.7)(x)
     predictions = Dense(num_classes, activation='softmax')(x)
     model = Model(inputs=base_model.input, outputs=predictions)
     return model
 
 
-def build_densenet121(input_shape, pre_trained_weights, num_classes):
+def build_densenet121(input_shape, pre_trained_weights, num_classes, dropout=False):
     base_model = applications.DenseNet121(weights=pre_trained_weights, include_top=False, input_shape=input_shape)
     if pre_trained_weights == 'imagenet':
         for layer in base_model.layers:
             layer.trainable = False
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
-    # x = Dropout(0.7)(x)
+    if dropout:
+        x = Dropout(0.7)(x)
     # let's add a fully-connected layer
     # x = Dense(1024, activation='relu')(x)
     # and a logistic layer -- let's say we have 200 classes
@@ -62,11 +64,12 @@ def build_densenet121(input_shape, pre_trained_weights, num_classes):
 
 
 def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, input_shape, pre_trained_weights,
-              num_classes, batch_size=32, epochs=100, optimizer='Adam', loss_typename='categorical_crossentropy'):
+              num_classes, batch_size=32, epochs=100, optimizer='Adam', loss_typename='categorical_crossentropy',
+              dropout=False):
     if model_name == 'densenet121':
-        model = build_densenet121(input_shape, pre_trained_weights, num_classes)
+        model = build_densenet121(input_shape, pre_trained_weights, num_classes, dropout)
     else:
-        model = build_resnet(input_shape, pre_trained_weights, num_classes)
+        model = build_resnet(input_shape, pre_trained_weights, num_classes, dropout)
 
     if optimizer == 'SGD':
         opt = SGD(lr=0.001, momentum=0.9, decay=1e-3, nesterov=True)
@@ -85,7 +88,7 @@ def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, 
     print(with_gpu)
 
     history = model.fit(x_train_data, y_train_data, epochs=epochs, batch_size=batch_size,
-              validation_data=(x_test_data, y_test_data))
+                        validation_data=(x_test_data, y_test_data))
     printGraph(history)
 
     preds = model.evaluate(x_test_data, y_test_data)
@@ -94,22 +97,30 @@ def run_model(x_train_data, y_train_data, x_test_data, y_test_data, model_name, 
     model.summary()
 
 
-model_name = 'densenet121'
-# model_name = 'resnet'
-
-if model_name == 'densenet121':  # For densenet - https://arxiv.org/pdf/1608.06993.pdf
-    batch_size = 64
-    epochs = 80
-    optimizer = 'SGD'
-else:
-    batch_size = 64  # orig paper trained all networks with batch_size=128
-    epochs = 80
-    optimizer = 'Adam'
+def print_params(model_name, batch_size, epochs, optimizer, loss, dropout, data_augmentation, pre_trained):
+    print('Training with:')
+    print('Network model name: {}'.format(model_name))
+    print('Batch size: {}'.format(batch_size))
+    print('Epochs: {}'.format(epochs))
+    print('Optimizer: {}'.format(optimizer))
+    print('Loss: {}'.format(loss))
+    print('Dropout: {}'.format(dropout))
+    print('Data augmentation: {}'.format(data_augmentation))
+    print('Pre-trained: {}'.format(pre_trained))
 
 # Training parameters
+
+model_name = 'densenet121'
+# model_name = 'resnet'
+batch_size = 64 # For densenet - https://arxiv.org/pdf/1608.06993.pdf
+epochs = 80
+optimizer = 'SGD'
+# optimizer = 'Adam'
+loss = 'categorical_crossentropy'
+dropout = False
 data_augmentation = False  # TODO: make it with data augmentation, should be noticeable for larger networks.. We will need to use fit_generator
-num_classes = 10
 pre_trained = False
+num_classes = 10
 
 if pre_trained:
     pre_trained_weights = 'imagenet'
@@ -118,6 +129,8 @@ else:
 
 # Subtracting pixel mean improves accuracy
 subtract_pixel_mean = True
+
+print_params(model_name, batch_size, epochs, optimizer, loss, dropout, data_augmentation, pre_trained)
 
 # Load the CIFAR10 data.
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
@@ -144,5 +157,5 @@ print('y_train shape:', y_train.shape)
 y_train = utils.to_categorical(y_train, num_classes)
 y_test = utils.to_categorical(y_test, num_classes)
 
-run_model(x_train, y_train, x_test, y_test, model_name, input_shape, pre_trained_weights,
-          num_classes, batch_size, epochs, optimizer)
+run_model(x_train, y_train, x_test, y_test, model_name, input_shape, pre_trained_weights, num_classes, batch_size,
+          epochs, optimizer, dropout=dropout)

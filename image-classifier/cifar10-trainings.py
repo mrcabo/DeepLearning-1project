@@ -48,6 +48,7 @@ def lr_schedule(epoch):
         lr (float32): learning rate
     """
     lr = 1e-3
+    # lr = 0.0001  # For VGG16, 1e-3 was too high. start from this value.
     if epoch > 90:
         lr *= 0.5e-3
     elif epoch > 80:

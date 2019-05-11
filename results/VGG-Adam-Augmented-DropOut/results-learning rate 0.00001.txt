@@ -1,0 +1,377 @@
+﻿0.00001
+Training with:
+Network model name: vgg16
+Batch size: 64
+Epochs: 100
+Optimizer: Adam
+Loss: categorical_crossentropy
+Dropout: True
+Data augmentation: True
+Pre-trained: False
+x_train shape: (50000, 32, 32, 3)
+50000 train samples
+10000 test samples
+y_train shape: (50000, 1)
+Learning rate:  1e-05
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+input_2 (InputLayer)         (None, 32, 32, 3)         0         
+_________________________________________________________________
+block1_conv1 (Conv2D)        (None, 32, 32, 64)        1792      
+_________________________________________________________________
+block1_conv2 (Conv2D)        (None, 32, 32, 64)        36928     
+_________________________________________________________________
+block1_pool (MaxPooling2D)   (None, 16, 16, 64)        0         
+_________________________________________________________________
+block2_conv1 (Conv2D)        (None, 16, 16, 128)       73856     
+_________________________________________________________________
+block2_conv2 (Conv2D)        (None, 16, 16, 128)       147584    
+_________________________________________________________________
+block2_pool (MaxPooling2D)   (None, 8, 8, 128)         0         
+_________________________________________________________________
+block3_conv1 (Conv2D)        (None, 8, 8, 256)         295168    
+_________________________________________________________________
+block3_conv2 (Conv2D)        (None, 8, 8, 256)         590080    
+_________________________________________________________________
+block3_conv3 (Conv2D)        (None, 8, 8, 256)         590080    
+_________________________________________________________________
+block3_pool (MaxPooling2D)   (None, 4, 4, 256)         0         
+_________________________________________________________________
+block4_conv1 (Conv2D)        (None, 4, 4, 512)         1180160   
+_________________________________________________________________
+block4_conv2 (Conv2D)        (None, 4, 4, 512)         2359808   
+_________________________________________________________________
+block4_conv3 (Conv2D)        (None, 4, 4, 512)         2359808   
+_________________________________________________________________
+block4_pool (MaxPooling2D)   (None, 2, 2, 512)         0         
+_________________________________________________________________
+block5_conv1 (Conv2D)        (None, 2, 2, 512)         2359808   
+_________________________________________________________________
+block5_conv2 (Conv2D)        (None, 2, 2, 512)         2359808   
+_________________________________________________________________
+block5_conv3 (Conv2D)        (None, 2, 2, 512)         2359808   
+_________________________________________________________________
+block5_pool (MaxPooling2D)   (None, 1, 1, 512)         0         
+_________________________________________________________________
+global_average_pooling2d_2 ( (None, 512)               0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 512)               0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 1024)              525312    
+_________________________________________________________________
+dense_4 (Dense)              (None, 10)                10250     
+=================================================================
+Total params: 15,250,250
+Trainable params: 15,250,250
+Non-trainable params: 0
+_________________________________________________________________
+If not empty, the code is using GPU:
+['/job:localhost/replica:0/task:0/device:GPU:0']
+Using real-time data augmentation.
+Epoch 1/100
+Learning rate:  1e-05
+ - 40s - loss: 2.0484 - acc: 0.2205 - val_loss: 1.8161 - val_acc: 0.3148
+Epoch 2/100
+Learning rate:  1e-05
+ - 39s - loss: 1.8064 - acc: 0.3104 - val_loss: 1.6927 - val_acc: 0.3499
+Epoch 3/100
+Learning rate:  1e-05
+ - 39s - loss: 1.7048 - acc: 0.3501 - val_loss: 1.6039 - val_acc: 0.3894
+Epoch 4/100
+Learning rate:  1e-05
+ - 39s - loss: 1.6435 - acc: 0.3757 - val_loss: 1.5889 - val_acc: 0.3965
+Epoch 5/100
+Learning rate:  1e-05
+ - 40s - loss: 1.5769 - acc: 0.4056 - val_loss: 1.4875 - val_acc: 0.4378
+Epoch 6/100
+Learning rate:  1e-05
+ - 40s - loss: 1.5209 - acc: 0.4319 - val_loss: 1.4830 - val_acc: 0.4470
+Epoch 7/100
+Learning rate:  1e-05
+ - 40s - loss: 1.4740 - acc: 0.4508 - val_loss: 1.4919 - val_acc: 0.4476
+Epoch 8/100
+Learning rate:  1e-05
+ - 40s - loss: 1.4402 - acc: 0.4651 - val_loss: 1.4097 - val_acc: 0.4799
+Epoch 9/100
+Learning rate:  1e-05
+ - 40s - loss: 1.4090 - acc: 0.4782 - val_loss: 1.3404 - val_acc: 0.5071
+Epoch 10/100
+Learning rate:  1e-05
+ - 40s - loss: 1.3760 - acc: 0.4934 - val_loss: 1.3392 - val_acc: 0.5096
+Epoch 11/100
+Learning rate:  1e-05
+ - 40s - loss: 1.3483 - acc: 0.5019 - val_loss: 1.3179 - val_acc: 0.5101
+Epoch 12/100
+Learning rate:  1e-05
+ - 40s - loss: 1.3173 - acc: 0.5162 - val_loss: 1.3596 - val_acc: 0.5080
+Epoch 13/100
+Learning rate:  1e-05
+ - 40s - loss: 1.2939 - acc: 0.5243 - val_loss: 1.2524 - val_acc: 0.5453
+Epoch 14/100
+Learning rate:  1e-05
+ - 40s - loss: 1.2660 - acc: 0.5356 - val_loss: 1.1818 - val_acc: 0.5675
+Epoch 15/100
+Learning rate:  1e-05
+ - 40s - loss: 1.2373 - acc: 0.5490 - val_loss: 1.1434 - val_acc: 0.5827
+Epoch 16/100
+Learning rate:  1e-05
+ - 40s - loss: 1.2164 - acc: 0.5560 - val_loss: 1.1600 - val_acc: 0.5831
+Epoch 17/100
+Learning rate:  1e-05
+ - 40s - loss: 1.1871 - acc: 0.5675 - val_loss: 1.1564 - val_acc: 0.5860
+Epoch 18/100
+Learning rate:  1e-05
+ - 40s - loss: 1.1691 - acc: 0.5729 - val_loss: 1.1520 - val_acc: 0.5884
+Epoch 19/100
+Learning rate:  1e-05
+ - 40s - loss: 1.1504 - acc: 0.5822 - val_loss: 1.1594 - val_acc: 0.5805
+Epoch 20/100
+Learning rate:  1e-05
+ - 40s - loss: 1.1314 - acc: 0.5840 - val_loss: 1.0777 - val_acc: 0.6094
+Epoch 21/100
+Learning rate:  1e-05
+ - 40s - loss: 1.1155 - acc: 0.5948 - val_loss: 1.1183 - val_acc: 0.6001
+Epoch 22/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0949 - acc: 0.6021 - val_loss: 1.0408 - val_acc: 0.6230
+Epoch 23/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0862 - acc: 0.6023 - val_loss: 1.0541 - val_acc: 0.6249
+Epoch 24/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0649 - acc: 0.6141 - val_loss: 1.0103 - val_acc: 0.6338
+Epoch 25/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0533 - acc: 0.6158 - val_loss: 1.0813 - val_acc: 0.6183
+Epoch 26/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0358 - acc: 0.6216 - val_loss: 0.9908 - val_acc: 0.6414
+Epoch 27/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0159 - acc: 0.6302 - val_loss: 1.1535 - val_acc: 0.6104
+Epoch 28/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0092 - acc: 0.6328 - val_loss: 0.9684 - val_acc: 0.6551
+Epoch 29/100
+Learning rate:  1e-05
+ - 40s - loss: 1.0020 - acc: 0.6378 - val_loss: 0.9417 - val_acc: 0.6641
+Epoch 30/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9796 - acc: 0.6419 - val_loss: 1.0536 - val_acc: 0.6356
+Epoch 31/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9684 - acc: 0.6484 - val_loss: 0.9851 - val_acc: 0.6569
+Epoch 32/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9571 - acc: 0.6524 - val_loss: 1.0091 - val_acc: 0.6481
+Epoch 33/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9415 - acc: 0.6584 - val_loss: 0.9253 - val_acc: 0.6712
+Epoch 34/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9276 - acc: 0.6644 - val_loss: 0.9759 - val_acc: 0.6603
+Epoch 35/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9142 - acc: 0.6684 - val_loss: 0.9066 - val_acc: 0.6774
+Epoch 36/100
+Learning rate:  1e-05
+ - 40s - loss: 0.9107 - acc: 0.6699 - val_loss: 0.9239 - val_acc: 0.6734
+Epoch 37/100
+Learning rate:  1e-05
+ - 40s - loss: 0.8957 - acc: 0.6752 - val_loss: 0.9111 - val_acc: 0.6730
+Epoch 38/100
+Learning rate:  1e-05
+ - 40s - loss: 0.8821 - acc: 0.6811 - val_loss: 0.9263 - val_acc: 0.6777
+Epoch 39/100
+Learning rate:  1e-05
+ - 40s - loss: 0.8694 - acc: 0.6879 - val_loss: 0.9902 - val_acc: 0.6607
+Epoch 40/100
+Learning rate:  1e-05
+ - 40s - loss: 0.8589 - acc: 0.6906 - val_loss: 0.9224 - val_acc: 0.6762
+Epoch 41/100
+Learning rate:  1e-05
+ - 40s - loss: 0.8428 - acc: 0.6962 - val_loss: 0.9608 - val_acc: 0.6697
+Epoch 42/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7965 - acc: 0.7135 - val_loss: 0.8434 - val_acc: 0.7070
+Epoch 43/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7903 - acc: 0.7165 - val_loss: 0.8312 - val_acc: 0.7104
+Epoch 44/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7861 - acc: 0.7185 - val_loss: 0.8324 - val_acc: 0.7109
+Epoch 45/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7859 - acc: 0.7168 - val_loss: 0.8248 - val_acc: 0.7138
+Epoch 46/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7808 - acc: 0.7196 - val_loss: 0.8280 - val_acc: 0.7109
+Epoch 47/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7796 - acc: 0.7193 - val_loss: 0.8478 - val_acc: 0.7086
+Epoch 48/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7799 - acc: 0.7185 - val_loss: 0.8425 - val_acc: 0.7095
+Epoch 49/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7792 - acc: 0.7197 - val_loss: 0.8290 - val_acc: 0.7148
+Epoch 50/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7737 - acc: 0.7221 - val_loss: 0.8197 - val_acc: 0.7136
+Epoch 51/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7736 - acc: 0.7205 - val_loss: 0.8368 - val_acc: 0.7117
+Epoch 52/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7742 - acc: 0.7215 - val_loss: 0.8184 - val_acc: 0.7146
+Epoch 53/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7699 - acc: 0.7215 - val_loss: 0.8208 - val_acc: 0.7158
+Epoch 54/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7695 - acc: 0.7240 - val_loss: 0.8160 - val_acc: 0.7156
+Epoch 55/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7653 - acc: 0.7251 - val_loss: 0.8118 - val_acc: 0.7187
+Epoch 56/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7681 - acc: 0.7238 - val_loss: 0.8253 - val_acc: 0.7171
+Epoch 57/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7627 - acc: 0.7259 - val_loss: 0.8233 - val_acc: 0.7157
+Epoch 58/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7616 - acc: 0.7259 - val_loss: 0.8216 - val_acc: 0.7179
+Epoch 59/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7634 - acc: 0.7258 - val_loss: 0.8044 - val_acc: 0.7243
+Epoch 60/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7583 - acc: 0.7270 - val_loss: 0.8241 - val_acc: 0.7171
+Epoch 61/100
+Learning rate:  1.0000000000000002e-06
+ - 40s - loss: 0.7619 - acc: 0.7259 - val_loss: 0.8131 - val_acc: 0.7183
+Epoch 62/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7525 - acc: 0.7285 - val_loss: 0.8096 - val_acc: 0.7211
+Epoch 63/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7499 - acc: 0.7312 - val_loss: 0.8093 - val_acc: 0.7213
+Epoch 64/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7444 - acc: 0.7328 - val_loss: 0.8108 - val_acc: 0.7209
+Epoch 65/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7524 - acc: 0.7310 - val_loss: 0.8088 - val_acc: 0.7220
+Epoch 66/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7496 - acc: 0.7309 - val_loss: 0.8073 - val_acc: 0.7218
+Epoch 67/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7504 - acc: 0.7305 - val_loss: 0.8128 - val_acc: 0.7198
+Epoch 68/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7484 - acc: 0.7318 - val_loss: 0.8081 - val_acc: 0.7218
+Epoch 69/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7528 - acc: 0.7291 - val_loss: 0.8070 - val_acc: 0.7229
+Epoch 70/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7476 - acc: 0.7311 - val_loss: 0.8035 - val_acc: 0.7237
+Epoch 71/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7508 - acc: 0.7288 - val_loss: 0.8034 - val_acc: 0.7220
+Epoch 72/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7480 - acc: 0.7292 - val_loss: 0.8096 - val_acc: 0.7207
+Epoch 73/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7492 - acc: 0.7299 - val_loss: 0.8038 - val_acc: 0.7236
+Epoch 74/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7469 - acc: 0.7317 - val_loss: 0.8085 - val_acc: 0.7213
+Epoch 75/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7456 - acc: 0.7302 - val_loss: 0.8081 - val_acc: 0.7218
+Epoch 76/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7466 - acc: 0.7318 - val_loss: 0.8092 - val_acc: 0.7226
+Epoch 77/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7461 - acc: 0.7315 - val_loss: 0.8067 - val_acc: 0.7224
+Epoch 78/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7487 - acc: 0.7309 - val_loss: 0.8072 - val_acc: 0.7218
+Epoch 79/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7461 - acc: 0.7316 - val_loss: 0.8102 - val_acc: 0.7230
+Epoch 80/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7491 - acc: 0.7310 - val_loss: 0.8045 - val_acc: 0.7232
+Epoch 81/100
+Learning rate:  1.0000000000000001e-07
+ - 40s - loss: 0.7469 - acc: 0.7313 - val_loss: 0.8043 - val_acc: 0.7237
+Epoch 82/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7469 - acc: 0.7339 - val_loss: 0.8041 - val_acc: 0.7232
+Epoch 83/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7468 - acc: 0.7320 - val_loss: 0.8051 - val_acc: 0.7235
+Epoch 84/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7449 - acc: 0.7319 - val_loss: 0.8054 - val_acc: 0.7237
+Epoch 85/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7449 - acc: 0.7326 - val_loss: 0.8064 - val_acc: 0.7233
+Epoch 86/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7432 - acc: 0.7328 - val_loss: 0.8056 - val_acc: 0.7234
+Epoch 87/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7464 - acc: 0.7312 - val_loss: 0.8053 - val_acc: 0.7233
+Epoch 88/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7477 - acc: 0.7315 - val_loss: 0.8057 - val_acc: 0.7234
+Epoch 89/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7426 - acc: 0.7331 - val_loss: 0.8061 - val_acc: 0.7234
+Epoch 90/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7464 - acc: 0.7315 - val_loss: 0.8051 - val_acc: 0.7232
+Epoch 91/100
+Learning rate:  1e-08
+ - 40s - loss: 0.7428 - acc: 0.7318 - val_loss: 0.8048 - val_acc: 0.7227
+Epoch 92/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7466 - acc: 0.7322 - val_loss: 0.8045 - val_acc: 0.7230
+Epoch 93/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7473 - acc: 0.7326 - val_loss: 0.8047 - val_acc: 0.7229
+Epoch 94/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7444 - acc: 0.7328 - val_loss: 0.8048 - val_acc: 0.7231
+Epoch 95/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7444 - acc: 0.7332 - val_loss: 0.8052 - val_acc: 0.7235
+Epoch 96/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7472 - acc: 0.7319 - val_loss: 0.8052 - val_acc: 0.7235
+Epoch 97/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7465 - acc: 0.7312 - val_loss: 0.8054 - val_acc: 0.7231
+Epoch 98/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7457 - acc: 0.7323 - val_loss: 0.8056 - val_acc: 0.7230
+Epoch 99/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7424 - acc: 0.7333 - val_loss: 0.8057 - val_acc: 0.7232
+Epoch 100/100
+Learning rate:  5e-09
+ - 40s - loss: 0.7465 - acc: 0.7299 - val_loss: 0.8056 - val_acc: 0.7235
+
+
+Test loss: 0.8056034341812134
+Test accuracy: 0.7235
+<Figure size 432x288 with 0 Axes>
+
